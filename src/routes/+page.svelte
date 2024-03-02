@@ -1,17 +1,34 @@
 <script>
     import '$lib/assets/global.css'
+    import axios from 'axios';
 
-    export let data;
+    const apiURL = 'http://localhost:8080/api'
 
-    let polls = [
-        {name: "is teh earth flat", description: "come vote to see if the earth is actually flat", endTime: "10M", startTime: "80m", pollId: 165165},
-        {name: "is teh earth flat", description: "come vote to see if the earth is actually flat", endTime: "10M", startTime: "80m", pollId: 165165},
-        {name: "is teh earth flat", description: "come vote to see if the earth is actually flat", endTime: "10M", startTime: "80m", pollId: 165165},
-        {name: "is teh earth flat", description: "come vote to see if the earth is actually flat", endTime: "10M", startTime: "80m", pollId: 165165},
-        {name: "is teh earth flat", description: "come vote to see if the earth is actually flat", endTime: "10M", startTime: "80m", pollId: 165165},
-        {name: "is teh earth flat", description: "come vote to see if the earth is actually flat", endTime: "10M", startTime: "80m", pollId: 165165},
+    import { onMount } from 'svelte';
 
-    ]
+
+    export async function fetchPolls() {
+        try {
+            const response = await axios.get(`${apiURL}/polls`);
+            return response.data;
+        } catch (error) {
+            console.error('Error fetching polls:', error);
+            throw error;
+        }
+    }
+
+
+    let polls = [];
+
+
+    onMount(async () => {
+        try {
+            polls = await fetchPolls();
+            console.log(polls)
+        } catch (error) {
+            console.error('Error fetching polls:', error);
+        }
+    });
 </script>
 <style>
     .main-cont {
@@ -84,7 +101,7 @@
 <div class="main-cont">
     <div class="poll-container">
         {#each polls as poll}
-            <a href="/{poll.pollId}">
+            <a href="/{poll.id}">
                 <div class="poll-item">
                     <h2 class="poll-title">{poll.name}</h2>
                     <p class="poll-description">{poll.description}</p>
