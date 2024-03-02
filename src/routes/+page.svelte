@@ -64,6 +64,7 @@
         flex-wrap: wrap;
         background-color: var(--cont-background);
         padding: 15px;
+        user-select: none;
     }
 
     .poll-title {
@@ -105,6 +106,7 @@
                 <div class="poll-item">
                     <h2 class="poll-title">{poll.name}</h2>
                     <p class="poll-description">{poll.description}</p>
+                    <p class="poll-description">{poll.endTime}</p>
                 </div>
             </a>
         {/each}
