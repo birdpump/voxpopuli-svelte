@@ -1,0 +1,20 @@
+:root {
+    --text: #d6d6d6;
+    --background: #101014;
+    --primary: #0084ff;
+    --secondary: #1b2c42;
+    --accent: #577db2;
+    --cont-background: #00284d;
+}
+
+*{
+    color: var(--text);
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: normal;
+}
+
+body{
+    background-color: var(--background);
+}
