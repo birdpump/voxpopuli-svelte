@@ -1,3 +1,8 @@
+<script>
+    import '$lib/assets/global.css'
+    export let data;
+</script>
+
 <style>
     .main-cont {
         display: flex;
