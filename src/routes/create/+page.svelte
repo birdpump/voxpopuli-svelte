@@ -121,7 +121,7 @@
         color: var(--text);
         float: right;
         background-color: red;
-        border: 4px rgb(68, 0, 0) solid;
+        border: 4px rgb(253, 131, 131) solid;
         text-align: center;
         margin: 0 auto;
         height: fit-content;
@@ -148,9 +148,9 @@
       {/each}
       <div class="main-buttons-parent">
         <button class="add-option-button" type="button" on:click={addOption} disabled={options.length >= 10}>Add Option</button>
-        <div class="cancel-button">
+        <button class="cancel-button">
             Cancel
-        </div>
+        </button>
         <button class="submit-button" type="button" on:click={handleSubmit}>Submit</button>
       </div>
       
