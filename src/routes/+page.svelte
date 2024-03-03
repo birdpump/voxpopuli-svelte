@@ -43,7 +43,7 @@
 
 
     .poll-container {
-        /*width: 100%;*/
+        width: 100%;
         /*flex: 1;*/
         display: flex;
         flex-wrap: wrap;
