@@ -3,7 +3,7 @@
     import axios from 'axios';
     import CreateModal from "$lib/components/CreateModal.svelte";
 
-    const apiURL = 'http://localhost:8080/api'
+    const apiURL = 'http://localhost:8080/api' //todo change this for deployment
 
     import { onMount } from 'svelte';
 

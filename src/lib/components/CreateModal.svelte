@@ -1,8 +1,13 @@
 <script>
     import '$lib/assets/global.css';
-
+    import axios from 'axios';
     let options = ['', ''];
 
+    const apiURL = 'http://localhost:8080/api' //todo change this for deployment
+
+
+    let pollDescription = '';
+    let selectedDate = '';
     export let showModal; // boolean
 
     let dialog; // HTMLDialogElement
@@ -30,22 +35,20 @@
             return;
         }
 
+        console.log("toest")
         try {
-            const response = await fetch('/api/poll', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({title: pollTitle, options: options.filter(option => option.trim() !== '')}),
-            });
-
-            if (response.ok) {
-                console.log('Poll created successfully');
-            } else {
-                console.error('Failed to create poll');
-            }
+            const newPoll = {
+                name: pollTitle,
+                description: pollDescription,
+                startTime: new Date().toISOString(),
+                endTime: new Date(selectedDate).toISOString(),
+                options: options.map(option => ({description: option}))
+            };
+            const response = await axios.post(`${apiURL}/polls`, newPoll);
+            return response.data;
         } catch (error) {
-            console.error('Error submitting form:', error);
+            console.error('Error creating poll:', error);
+            throw error;
         }
     }
 </script>
@@ -88,6 +91,22 @@
     }
 
     .poll-title {
+        background: none;
+        outline: none;
+        border: none;
+        width: 350px;
+        font-size: 20px;
+        display: flex;
+        align-items: center;
+        background-color: var(--accent);
+        border: 5px var(--primary) solid;
+        border-radius: 3px;
+        color: var(--text);
+        padding: 5px 0 5px 10px;
+        margin-bottom: 25px;
+    }
+
+    .poll-description{
         background: none;
         outline: none;
         border: none;
@@ -202,6 +221,8 @@
         <h1 style="text-align: center; font-weight: bold;">Create Poll</h1>
         <form on:submit|preventDefault={handleSubmit}>
             <input class="poll-title" placeholder="Poll Title" type="text">
+            <input class="poll-description" placeholder="Poll Description" type="text" bind:value={pollDescription}>
+            <input type="date" id="datepicker" bind:value={selectedDate}>
             {#each options as option, index (index)}
                 <div class="option-input">
                     <input type="text" placeholder={`Option ${index + 1}`} bind:value={options[index]}
