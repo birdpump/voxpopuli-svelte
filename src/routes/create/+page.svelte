@@ -1,28 +1,23 @@
 <script>
-    // Your existing script remains unchanged
     import '$lib/assets/global.css';
     let options = ['', ''];
   
-    // Adjusted to prevent adding more than 10 options
     function addOption() {
       if (options.length < 10) {
         options = [...options, ''];
       }
     }
   
-    // Function to remove an option by index remains unchanged
     function removeOption(index) {
       options = options.filter((_, i) => i !== index);
     }
   
-    // Function to update option value remains unchanged
     function updateOption(index, value) {
       options[index] = value;
     }
   
-    // New function to handle form submission
     async function handleSubmit() {
-      const pollTitle = document.querySelector('.poll-title').value; // Assuming you have a poll title input
+      const pollTitle = document.querySelector('.poll-title').value;
       if (!pollTitle || options.some(option => option.trim() === '')) {
         console.error('Please fill all fields.');
         return;
