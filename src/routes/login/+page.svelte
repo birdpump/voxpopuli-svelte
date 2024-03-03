@@ -5,7 +5,7 @@
     import {isLoggedIn} from "$lib/Store.js";
     import {currentUsername} from "$lib/Store.js";
 
-    const apiURL = 'http://localhost:8080/api'
+    const apiURL = 'https://voxpopuli.lol/api'
 
 
     import '$lib/assets/global.css'

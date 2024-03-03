@@ -1,10 +1,11 @@
 <script>
     import '$lib/assets/global.css'
-
+    import {logout} from "$lib/Store.js";
    import {showModal} from "$lib/Store.js";
 
-    // Create a writable store variable
-
+    function handleLogout() {
+        logout();
+    }
 </script>
 
 <style>
@@ -35,5 +36,8 @@
 
 <div class="top-bar">
     <h1 class="title">VoxPopuli</h1>
-    <button class="material-symbols-outlined add-icon" on:click={() => (showModal.set(true))}>add_circle</button>
+    <div>
+        <button class="material-symbols-outlined add-icon" on:click={() => (showModal.set(true))}>add_circle</button>
+        <button class="material-symbols-outlined add-icon" on:click={handleLogout}>logout</button>
+    </div>
 </div>

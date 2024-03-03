@@ -3,16 +3,23 @@
     import axios from 'axios';
     import CreateModal from "$lib/components/CreateModal.svelte";
 
-    const apiURL = 'http://localhost:8080/api' //todo change this for deployment
+    const apiURL = 'https://voxpopuli.lol/api' //todo change this for deployment
 
     import { onMount } from 'svelte';
 
     import {showModal} from "$lib/Store.js";
 
+    let polls = [];
+
+    function myEventHandler(e) {
+        console.log("test")
+        fetchPolls();
+    }
+
     export async function fetchPolls() {
         try {
             const response = await axios.get(`${apiURL}/polls`);
-            return response.data;
+            polls = response.data;
         } catch (error) {
             console.error('Error fetching polls:', error);
             throw error;
@@ -20,12 +27,10 @@
     }
 
 
-    let polls = [];
-
 
     onMount(async () => {
         try {
-            polls = await fetchPolls();
+           await fetchPolls();
             console.log(polls)
         } catch (error) {
             console.error('Error fetching polls:', error);
@@ -35,6 +40,7 @@
 <style>
     .main-cont {
         /*flex: 1;*/
+        width: 100%;
         display: flex;
         align-items: center;
         flex-direction: column;
@@ -108,7 +114,7 @@
 
 <div class="main-cont">
 
-    <CreateModal bind:showModal={$showModal}/>
+    <CreateModal bind:showModal={$showModal} on:submitted={myEventHandler}/>
 
 
     <div class="poll-container">

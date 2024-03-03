@@ -17,6 +17,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@sveltejs/adapter-node": "^4.0.1",
 		"axios": "^1.6.7",
 		"svelte-qrcode": "^1.0.0"
 	}

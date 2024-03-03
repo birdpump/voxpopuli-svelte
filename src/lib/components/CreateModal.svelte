@@ -3,8 +3,11 @@
     import axios from 'axios';
     let options = ['', ''];
 
-    const apiURL = 'http://localhost:8080/api' //todo change this for deployment
+    const apiURL = 'https://voxpopuli.lol/api' //todo change this for deployment
 
+    import { createEventDispatcher } from 'svelte'
+
+    const dispatch = createEventDispatcher()
 
     let pollDescription = '';
     let selectedDate = '';
@@ -45,7 +48,10 @@
                 options: options.map(option => ({description: option}))
             };
             const response = await axios.post(`${apiURL}/polls`, newPoll);
-            return response.data;
+            dispatch('submitted', {
+                reload: true
+            })
+            dialog.close();
         } catch (error) {
             console.error('Error creating poll:', error);
             throw error;
