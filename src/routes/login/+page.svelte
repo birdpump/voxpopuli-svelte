@@ -1,22 +1,39 @@
 <script>
     // Import statements and logic remain largely the same
-    
+    import axios from 'axios';
+    import { goto } from "$app/navigation";
+
+    import {isLoggedIn} from "$lib/Store.js";
+    import {currentUsername} from "$lib/Store.js";
+
+    const apiURL = 'http://localhost:8080/api' //todo change this for deployment
+
+
     import '$lib/assets/global.css'
     let username = '';
     let password = '';
     let errorMessage = '';
-  
+
     // handleLogin function would also need adjustments for Svelte, not shown here
-  
+
     function handleLogin(e) {
       e.preventDefault();
       // Your login logic here
+    }
+    async function login() {
+      const response = await axios.post(`${apiURL}/users/login`, { username, password });
+      if (response.status === 200) {
+
+        isLoggedIn.set(true);
+        currentUsername.set(username);
+        await goto("/");
+      }
     }
 
   </script>
   <style>
     #login-parent{
-        
+
     }
   </style>
   <div id="login-parent">
@@ -36,7 +53,6 @@
       <p style="color: blue; margin-top: 20px;">
         Don't have an account? <a href="/register">Register</a>
       </p>
-      <button type="submit">Login</button>
+      <button type="submit" on:click={login}>Login</button>
     </form>
   </div>
-  
