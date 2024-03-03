@@ -1,11 +1,13 @@
 <script>
     import '$lib/assets/global.css'
     import axios from 'axios';
+    import CreateModal from "$lib/components/CreateModal.svelte";
 
     const apiURL = 'http://localhost:8080/api'
 
     import { onMount } from 'svelte';
 
+    import {showModal} from "$lib/Store.js";
 
     export async function fetchPolls() {
         try {
@@ -71,6 +73,11 @@
         margin: 5px;
 
     }
+    .poll-date{
+        margin-top: auto;
+    }
+
+
 
     .poll-description{
         margin: 0;
@@ -100,13 +107,17 @@
 </style>
 
 <div class="main-cont">
+
+    <CreateModal bind:showModal={$showModal}/>
+
+
     <div class="poll-container">
         {#each polls as poll}
             <a href="/{poll.id}">
                 <div class="poll-item">
                     <h2 class="poll-title">{poll.name}</h2>
                     <p class="poll-description">{poll.description}</p>
-                    <p class="poll-description">{poll.endTime}</p>
+                    <p class="poll-date" style="justify-self: flex-end;">{new Date(poll.endTime).toLocaleString()}</p>
                 </div>
             </a>
         {/each}
